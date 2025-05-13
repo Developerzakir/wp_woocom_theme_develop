@@ -16,9 +16,16 @@
                             ?>
 
                                 <div class="card mb-4">
-                                    <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
+                                    <a href="#!">
+                                       <?php if (has_post_thumbnail()) : ?>
+                                            <?php the_post_thumbnail('large', ['class' => 'card-img-top', 'alt' => get_the_title()]); ?>
+                                        <?php else : ?>
+                                            <img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="No image available">
+                                        <?php endif; ?>
+                                    </a>
+
                                     <div class="card-body">
-                                        <div class="small text-muted">January 1, 2023</div>
+                                        <div class="small text-muted"><?php echo get_the_date(); ?></div>
                                         <h2 class="card-title"><?php the_title(); ?></h2>
                                         <p class="card-text"><?php the_content(); ?></p>
                                         <a class="btn btn-primary" href="<?php the_permalink(); ?>">Read more →</a>

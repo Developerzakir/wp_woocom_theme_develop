@@ -33,6 +33,27 @@ function simplebtheme_menu_register()
         'left_sidebar_menu' => 'Left Sidebar Menu',
         'right_sidebar_menu' => 'Right Sidebar Menu',
     ));
+
+
+    //theme support
+
+
+    // Enable featured images (post thumbnails)
+    add_theme_support('post-thumbnails');
+
+    // Enable support for custom logo
+    add_theme_support('custom-logo');
+
+    // Enable HTML5 markup for forms, comments, galleries, etc.
+    add_theme_support('html5', ['search-form', 'comment-form', 'comment-list', 'gallery', 'caption', 'style', 'script']);
+
+    // Enable support for custom background
+    add_theme_support('custom-background');
+
+    // Enable support for custom header
+    add_theme_support('custom-header');
+
+
 }
 add_action("after_setup_theme", "simplebtheme_menu_register");
 
