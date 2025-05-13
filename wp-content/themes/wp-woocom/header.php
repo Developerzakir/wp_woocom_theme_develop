@@ -7,7 +7,7 @@
 
     <?php wp_head(); ?>
 </head>
-<body>
+<body <?php body_class(); ?>>
     <header>
         <section class="site-logo">Logo</section>
         <section class="site-menus">
