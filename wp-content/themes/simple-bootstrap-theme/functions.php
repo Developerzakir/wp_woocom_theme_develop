@@ -54,6 +54,25 @@ function simplebtheme_menu_register()
     add_theme_support('custom-header');
 
 
+    //woocommerce support
+    add_theme_support('woocommerce', array(
+        'thumbnail_image_width' => 150,
+        'single_image_width'    => 300,
+        'product_grid'          => array(
+            'default_rows'    => 4,
+            'min_rows'        => 1,
+            'max_rows'        => 6,
+            'default_columns' => 4,
+            'min_columns'     => 1,
+            'max_columns'     => 6,
+        ),
+    ));
+
+    add_theme_support('wc-product-gallery-zoom');
+    add_theme_support('wc-product-gallery-lightbox');
+    add_theme_support('wc-product-gallery-slider');
+
+
 }
 add_action("after_setup_theme", "simplebtheme_menu_register");
 
