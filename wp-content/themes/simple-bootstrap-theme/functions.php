@@ -11,10 +11,29 @@ function simplebtheme_scripts_load()
     //theme main file style.css
     wp_enqueue_style('theme-style', get_stylesheet_uri(), array(), '1.0', 'all');
 
+
+
+    // Bootstrap 5 JS (needs Popper for dropdowns)
+    wp_enqueue_script('bootstrap-js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js', [], null, true);
+
    //custom js file script.js
     wp_enqueue_script('custom.js', get_template_directory_uri()."/assets/js/script.js", array('jquery'), '1.0', true);
 
 }
 add_action('wp_enqueue_scripts','simplebtheme_scripts_load');
+
+
+//register nav menu
+function simplebtheme_menu_register()
+{
+    register_nav_menus(array(
+        'primary_menu' => 'Primary Menu',
+        'secondary_menu' => 'Secondary Menu',
+        'footer_menu' => 'Footer Menu',
+        'left_sidebar_menu' => 'Left Sidebar Menu',
+        'right_sidebar_menu' => 'Right Sidebar Menu',
+    ));
+}
+add_action("after_setup_theme", "simplebtheme_menu_register");
 
 
