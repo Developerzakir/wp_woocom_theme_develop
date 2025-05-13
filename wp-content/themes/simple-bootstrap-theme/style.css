@@ -63,3 +63,9 @@ div.new-arrival-custom-class a.button.product_type_simple.add_to_cart_button.aja
     max-width: 300px;
     height: auto;
 }
+
+.wc-block-cart .wc-block-cart__submit-container {
+    padding: 0;
+    background: orange;
+    color:#fff;
+}
