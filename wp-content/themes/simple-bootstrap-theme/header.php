@@ -12,7 +12,7 @@
 
         <?php wp_head(); ?>
     </head>
-    <body <?php body_class(); ?>>
+    <body  <?php body_class(); ?>>
         <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">

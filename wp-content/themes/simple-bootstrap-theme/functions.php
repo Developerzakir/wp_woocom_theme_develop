@@ -12,7 +12,6 @@ function simplebtheme_scripts_load()
     wp_enqueue_style('theme-style', get_stylesheet_uri(), array(), '1.0', 'all');
 
 
-
     // Bootstrap 5 JS (needs Popper for dropdowns)
     wp_enqueue_script('bootstrap-js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js', [], null, true);
 
@@ -61,51 +60,64 @@ function simplebtheme_menu_register()
     ]);
 
 
-    //woocommerce support
-    add_theme_support('woocommerce', array(
-        'thumbnail_image_width' => 150,
-        'single_image_width'    => 300,
-        'product_grid'          => array(
-                'default_rows'    => 4,
-                'min_rows'        => 1,
-                'max_rows'        => 6,
-                'default_columns' => 4,
-                'min_columns'     => 1,
-                'max_columns'     => 6,
-        ),
-    ));
-
-    add_theme_support('wc-product-gallery-zoom');
-    add_theme_support('wc-product-gallery-lightbox');
-    add_theme_support('wc-product-gallery-slider');
-
-
 }
 add_action("after_setup_theme", "simplebtheme_menu_register");
 
 //woocommerce
 
-//remove sidebar from shop page
-remove_action('woocommerce_sidebar','woocommerce_get_sidebar');
+// Only run WooCommerce-specific code if WooCommerce is active
+if ( class_exists('WooCommerce') ) {
+
+    // Add WooCommerce support to the theme
+    add_theme_support('woocommerce', array(
+        'thumbnail_image_width' => 150,
+        'single_image_width'    => 300,
+        'product_grid'          => array(
+            'default_rows'    => 4,
+            'min_rows'        => 1,
+            'max_rows'        => 6,
+            'default_columns' => 4,
+            'min_columns'     => 1,
+            'max_columns'     => 6,
+        ),
+    ));
 
 
-//display product short description
-add_action('woocommerce_after_shop_loop_item_title', 'the_excerpt');
+    add_filter( 'woocommerce_get_image_size_single', 'custom_woocommerce_single_image_size' );
+    function custom_woocommerce_single_image_size( $size ) {
+        return array(
+            'width'  => 300,
+            'height' => 300,
+            'crop'   => 1,
+        );
+    }
 
-//hide shop text
-add_filter('woocommerce_show_page_title', 'toggle_page_title');
-function toggle_page_title($val){
-    $val  = false;
-    return $val;
+    add_theme_support('wc-product-gallery-zoom');
+    add_theme_support('wc-product-gallery-lightbox');
+    add_theme_support('wc-product-gallery-slider');
+
+    // Remove WooCommerce sidebar from product details page
+    add_action("template_redirect", "details_page_remove_sidebar");
+    function details_page_remove_sidebar(){
+        if ( ! is_shop() ) {
+            remove_action('woocommerce_sidebar','woocommerce_get_sidebar');
+        }
+    }
+
+    // Optionally hide the default shop page title
+    add_filter('woocommerce_show_page_title', 'toggle_page_title');
+    function toggle_page_title($val){
+        return false;
+    }
+
+    // Remove breadcrumbs from archive-product.php
+    remove_action("woocommerce_before_main_content", "woocommerce_breadcrumb", 20);
+
+    // Optional: Remove other elements if needed
+    // remove_action("woocommerce_before_shop_loop", "woocommerce_result_count", 20);
+    // remove_action("woocommerce_before_shop_loop", "woocommerce_catalog_ordering", 30);
 }
 
-// removing elements from archive-product.php
-
-remove_action("woocommerce_before_main_content", "woocommerce_breadcrumb", 20);
-
-// remove_action("woocommerce_before_shop_loop", "woocommerce_result_count", 20);
-
-// remove_action("woocommerce_before_shop_loop", "woocommerce_catalog_ordering", 30);
 
 
 
