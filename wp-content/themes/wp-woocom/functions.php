@@ -1,6 +1,8 @@
 <?php 
 
 
+
+//theme style & js file load
 function wpwoocom_theme_scripts_load()
 {
     //theme custom css file theme.css
@@ -14,3 +16,16 @@ function wpwoocom_theme_scripts_load()
 
 }
 add_action('wp_enqueue_scripts','wpwoocom_theme_scripts_load');
+
+
+//register nav menu
+
+function wpwoocom_theme_menu_register()
+{
+    register_nav_menus(array(
+        'primary_menu' => 'Primary Menu',
+        'footer_menu' => 'Footer Menu',
+        'left_sidebar_menu' => 'Left Sidebar Menu',
+    ));
+}
+add_action("after_setup_theme", "wpwoocom_theme_menu_register");

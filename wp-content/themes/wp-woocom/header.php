@@ -11,11 +11,19 @@
     <header>
         <section class="site-logo">Logo</section>
         <section class="site-menus">
-                <nav>
+
+        <?php
+
+        wp_nav_menu(array(
+            'theme_location' =>'primary_menu'
+        ));
+        
+        ?>
+                <!-- <nav>
                     <a href="">Home</a>
                     <a href="">About</a>
                     <a href="">Products</a>
                     <a href="">Contact</a>
-                </nav>
+                </nav> -->
         </section>
     </header>
