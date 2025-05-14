@@ -116,6 +116,27 @@ if ( class_exists('WooCommerce') ) {
     // Optional: Remove other elements if needed
     // remove_action("woocommerce_before_shop_loop", "woocommerce_result_count", 20);
     // remove_action("woocommerce_before_shop_loop", "woocommerce_catalog_ordering", 30);
+
+
+/**
+ * Show cart contents / total Ajax
+ */
+add_filter('woocommerce_add_to_cart_fragments', 'simple_bootstrap_theme_woocommerce_header_add_to_cart_fragment');
+
+function simple_bootstrap_theme_woocommerce_header_add_to_cart_fragment($fragments)
+{
+    global $woocommerce;
+
+    ob_start();
+
+    ?>
+    <span class="items-count"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
+<?php
+$fragments['span.items-count'] = ob_get_clean();
+    return $fragments;
+}
+
+
 }
 
 
