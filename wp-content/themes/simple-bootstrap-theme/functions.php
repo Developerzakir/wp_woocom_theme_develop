@@ -63,6 +63,112 @@ function simplebtheme_menu_register()
 }
 add_action("after_setup_theme", "simplebtheme_menu_register");
 
+
+
+
+function simple_bootstrap_theme_load_wp_customizer($wp_customize)
+{
+    /// customizer code
+
+        // adding section
+        $wp_customize->add_section("sec_copyright", array(
+            "title" => "Copyright Section",
+            "description" => "This is a copyright section",
+        ));
+
+        // adding settings/field
+        $wp_customize->add_setting("set_copyright", array(
+            "type" => "theme_mod",
+            "default" => "",
+            "sanitize_callback" => "sanitize_text_field",
+        ));
+
+        // add control
+        $wp_customize->add_control("set_copyright", array(
+            "label" => "Copyright",
+            "description" => "Please fill the copyright text",
+            "section" => "sec_copyright",
+            "type" => "text",
+        ));
+
+        /* section of new arrival / popularity control limit and columns */
+
+        // adding section
+        $wp_customize->add_section("sec_product_panel", array(
+            "title" => "Product Panel Limit & Columns",
+            "description" => "This is a section which is going to provide the controls for home page product panels",
+        ));
+
+        // adding settings/field
+        $wp_customize->add_setting("set_new_arrival_limit", array(
+            "type" => "theme_mod",
+            "default" => "",
+            "sanitize_callback" => "absint",
+        ));
+
+        // add control
+        $wp_customize->add_control("set_new_arrival_limit", array(
+            "label" => "New Arrival - Product Limit",
+            "description" => "Please fill provide the limit of new arrival",
+            "section" => "sec_product_panel",
+            "type" => "number",
+        ));
+
+        // adding settings/field
+        $wp_customize->add_setting("set_new_arrival_column", array(
+            "type" => "theme_mod",
+            "default" => "",
+            "sanitize_callback" => "absint",
+        ));
+
+        // add control
+        $wp_customize->add_control("set_new_arrival_column", array(
+            "label" => "New Arrival - Product Columns",
+            "description" => "Please fill provide the columns of new arrival",
+            "section" => "sec_product_panel",
+            "type" => "number",
+        ));
+
+
+        // adding settings/field
+        $wp_customize->add_setting("set_popular_limit", array(
+            "type" => "theme_mod",
+            "default" => "",
+            "sanitize_callback" => "absint",
+        ));
+
+        // add control
+        $wp_customize->add_control("set_popular_limit", array(
+            "label" => "Popularity - Product Limit",
+            "description" => "Please fill provide the limit of popularity",
+            "section" => "sec_product_panel",
+            "type" => "number",
+        ));
+
+        // adding settings/field
+        $wp_customize->add_setting("set_popular_columns", array(
+            "type" => "theme_mod",
+            "default" => "",
+            "sanitize_callback" => "absint",
+        ));
+
+        // add control
+        $wp_customize->add_control("set_popular_columns", array(
+            "label" => "Popularity - Product Columns",
+            "description" => "Please fill provide the columns of popularity",
+            "section" => "sec_product_panel",
+            "type" => "number",
+        ));
+}
+
+add_action("customize_register", "simple_bootstrap_theme_load_wp_customizer");
+
+
+
+
+
+
+
 //woocommerce
 
 // Only run WooCommerce-specific code if WooCommerce is active
@@ -135,7 +241,6 @@ function simple_bootstrap_theme_woocommerce_header_add_to_cart_fragment($fragmen
 $fragments['span.items-count'] = ob_get_clean();
     return $fragments;
 }
-
 
 }
 
